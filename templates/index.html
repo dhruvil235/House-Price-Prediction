@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Boston Housing Price Predictor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 600px;
+        }
+
+        h1 {
+            color: #333399;
+            text-align: center;
+            font-size: 18px;
+            margin: 5px 0 10px 0;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px 12px;
+        }
+
+        .field {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        label {
+            font-weight: bold;
+            white-space: nowrap;
+            font-size: 11px;
+        }
+
+        input[type="number"] {
+            flex: 1;
+            padding: 4px;
+            font-size: 11px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"] {
+            grid-column: span 2;
+            padding: 6px;
+            margin-top: 10px;
+            background-color: #333399;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        h2 {
+            text-align: center;
+            color: green;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Boston Housing Price Prediction</h1>
+        <form method="post" action="/predict">
+            {% for col in ['crim', 'zn', 'indus', 'chas', 'nox', 'rm', 'age', 'dis', 'rad', 'tax', 'ptratio', 'b', 'lstat'] %}
+                <div class="field">
+                    <label>{{ col.upper() }}:</label>
+                    <input type="number" step="any" name="{{ col }}" required>
+                </div>
+            {% endfor %}
+            <input type="submit" value="Predict Price">
+        </form>
+        {% if prediction %}
+        <h2>Predicted Price: ₹ {{ prediction }} Lakhs</h2>
+        {% endif %}
+    </div>
+</body>
+</html>
